@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.play.dao.RebangDao">
+
+    <resultMap type="com.web.play.entity.Rebang" id="RebangMap">
+        <result property="bookId" column="book_id" jdbcType="INTEGER"/>
+        <result property="count" column="count" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="RebangMap">
+        select
+          book_id, count
+        from books.rebang
+        where book_id = #{bookId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="RebangMap">
+        select
+          book_id, count
+        from books.rebang
+        limit #{offset}, #{limit}
+    </select>
+
+    <select id="queryAll1" resultMap="RebangMap">
+        select *
+        from books.rebang order by count DESC
+    </select>
+
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="RebangMap">
+        select
+        book_id, count
+        from books.rebang
+        <where>
+            <if test="bookId != null">
+                and book_id = #{bookId}
+            </if>
+            <if test="count != null">
+                and count = #{count}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="bookId" useGeneratedKeys="true">
+        insert into books.rebang(count)
+        values (#{count})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update books.rebang
+        <set>
+            <if test="count != null">
+                count = #{count},
+            </if>
+        </set>
+        where book_id = #{bookId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from books.rebang where book_id = #{bookId}
+    </delete>
+
+</mapper>

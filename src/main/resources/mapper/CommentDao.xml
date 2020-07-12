@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.play.dao.CommentDao">
+
+    <resultMap type="com.web.play.entity.Comment" id="CommentMap">
+        <result property="commentId" column="comment_id" jdbcType="INTEGER"/>
+        <result property="bookId" column="book_id" jdbcType="INTEGER"/>
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="date" column="date" jdbcType="TIMESTAMP"/>
+        <result property="content" column="content" jdbcType="VARCHAR"/>
+        <result property="flag" column="flag" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="CommentMap">
+        select
+          comment_id, book_id, user_id, username, date, content, flag
+        from books.comment
+        where comment_id = #{commentId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="CommentMap">
+        select
+          comment_id, book_id, user_id, username, date, content, flag
+        from books.comment
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="CommentMap">
+        select
+        comment_id, book_id, user_id, username, date, content, flag
+        from books.comment
+        <where>
+            <if test="commentId != null">
+                and comment_id = #{commentId}
+            </if>
+            <if test="bookId != null">
+                and book_id = #{bookId}
+            </if>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test="username != null and username != ''">
+                and username = #{username}
+            </if>
+            <if test="date != null">
+                and date = #{date}
+            </if>
+            <if test="content != null and content != ''">
+                and content = #{content}
+            </if>
+            <if test="flag != null and flag != ''">
+                and flag = #{flag}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="commentId" useGeneratedKeys="true">
+        insert into books.comment(book_id, user_id, username, date, content, flag)
+        values (#{bookId}, #{userId}, #{username}, #{date}, #{content}, #{flag})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update books.comment
+        <set>
+            <if test="bookId != null">
+                book_id = #{bookId},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
+            <if test="username != null and username != ''">
+                username = #{username},
+            </if>
+            <if test="date != null">
+                date = #{date},
+            </if>
+            <if test="content != null and content != ''">
+                content = #{content},
+            </if>
+            <if test="flag != null and flag != ''">
+                flag = #{flag},
+            </if>
+        </set>
+        where comment_id = #{commentId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from books.comment where comment_id = #{commentId}
+    </delete>
+
+</mapper>

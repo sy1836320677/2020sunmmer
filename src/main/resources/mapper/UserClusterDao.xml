@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.play.dao.UserClusterDao">
+
+    <resultMap type="com.web.play.entity.UserCluster" id="UserClusterMap">
+        <result property="userid" column="userid" jdbcType="INTEGER"/>
+        <result property="userclusterid" column="userclusterid" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="UserClusterMap">
+        select
+          userid, userclusterid
+        from books.user_cluster
+        where userid = #{userid}
+    </select>
+
+    <select id="queryByCId" resultMap="UserClusterMap">
+        select
+          userid,userclusterid
+        from books.user_cluster
+        where userclusterid= #{userclusterid}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="UserClusterMap">
+        select
+          userid, userclusterid
+        from books.user_cluster
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="UserClusterMap">
+        select
+          userid, userclusterid
+        from books.user_cluster
+        <where>
+            <if test="userid != null">
+                and userid = #{userid}
+            </if>
+            <if test="userclusterid != null">
+                and userclusterid = #{userclusterid}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="userid" useGeneratedKeys="true">
+        insert into books.user_cluster(userclusterid)
+        values (#{userclusterid})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update books.user_cluster
+        <set>
+            <if test="userclusterid != null">
+                userclusterid = #{userclusterid},
+            </if>
+        </set>
+        where userid = #{userid}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from books.user_cluster where userid = #{userid}
+    </delete>
+
+</mapper>
