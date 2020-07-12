@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.play.dao.UserDao">
+
+    <resultMap type="com.web.play.entity.User" id="UserMap">
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="nickname" column="nickname" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="gender" column="gender" jdbcType="VARCHAR"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="phone" column="phone" jdbcType="VARCHAR"/>
+        <result property="zipCode" column="zip_code" jdbcType="VARCHAR"/>
+        <result property="location" column="location" jdbcType="VARCHAR"/>
+        <result property="age" column="age" jdbcType="INTEGER"/>
+        <result property="country" column="country" jdbcType="VARCHAR"/>
+        <result property="detailAddress" column="detail_address" jdbcType="VARCHAR"/>
+        <result property="identity" column="identity" jdbcType="VARCHAR"/>
+        <result property="active" column="active" jdbcType="VARCHAR"/>
+        <result property="code" column="code" jdbcType="VARCHAR"/>
+        <result property="updated" column="updated" jdbcType="TIMESTAMP"/>
+        <result property="created" column="created" jdbcType="TIMESTAMP"/>
+        <result property="money" column="money" jdbcType="DOUBLE"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="UserMap">
+        select
+          user_id, username, nickname, password, gender, email, phone, zip_code, location, age, country, detail_address, identity, active, code, updated, created, money
+        from books.user
+        where user_id = #{userId}
+    </select>
+
+    <select id="queryByUsername" resultMap="UserMap">
+        select
+          user_id, username, nickname, password, gender, email, phone, zip_code, location, age, country, detail_address, identity, active, code, updated, created, money
+        from books.user
+        where username = #{username}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="UserMap">
+        select
+          user_id, username, nickname, password, gender, email, phone, zip_code, location, age, country, detail_address, identity, active, code, updated, created, money
+        from books.user
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="UserMap">
+        select
+          user_id, username, nickname, password, gender, email, phone, zip_code, location, age, country, detail_address, identity, active, code, updated, created, money
+        from books.user
+        <where>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test="username != null and username != ''">
+                and username = #{username}
+            </if>
+            <if test="nickname != null and nickname != ''">
+                and nickname = #{nickname}
+            </if>
+            <if test="password != null and password != ''">
+                and password = #{password}
+            </if>
+            <if test="gender != null and gender != ''">
+                and gender = #{gender}
+            </if>
+            <if test="email != null and email != ''">
+                and email = #{email}
+            </if>
+            <if test="phone != null and phone != ''">
+                and phone = #{phone}
+            </if>
+            <if test="zipCode != null and zipCode != ''">
+                and zip_code = #{zipCode}
+            </if>
+            <if test="location != null and location != ''">
+                and location = #{location}
+            </if>
+            <if test="age != null">
+                and age = #{age}
+            </if>
+            <if test="country != null and country != ''">
+                and country = #{country}
+            </if>
+            <if test="detailAddress != null and detailAddress != ''">
+                and detail_address = #{detailAddress}
+            </if>
+            <if test="identity != null and identity != ''">
+                and identity = #{identity}
+            </if>
+            <if test="active != null and active != ''">
+                and active = #{active}
+            </if>
+            <if test="code != null and code != ''">
+                and code = #{code}
+            </if>
+            <if test="updated != null">
+                and updated = #{updated}
+            </if>
+            <if test="created != null">
+                and created = #{created}
+            </if>
+            <if test="money != null">
+                and money = #{money}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="userId" useGeneratedKeys="true">
+        insert into books.user(username, nickname, password, gender, email, phone, zip_code, location, age, country, detail_address, identity, active, code, updated, created, money)
+        values (#{username}, #{nickname}, #{password}, #{gender}, #{email}, #{phone}, #{zipCode}, #{location}, #{age}, #{country}, #{detailAddress}, #{identity}, #{active}, #{code}, #{updated}, #{created}, #{money})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update books.user
+        <set>
+            <if test="username != null and username != ''">
+                username = #{username},
+            </if>
+            <if test="nickname != null and nickname != ''">
+                nickname = #{nickname},
+            </if>
+            <if test="password != null and password != ''">
+                password = #{password},
+            </if>
+            <if test="gender != null and gender != ''">
+                gender = #{gender},
+            </if>
+            <if test="email != null and email != ''">
+                email = #{email},
+            </if>
+            <if test="phone != null and phone != ''">
+                phone = #{phone},
+            </if>
+            <if test="zipCode != null and zipCode != ''">
+                zip_code = #{zipCode},
+            </if>
+            <if test="location != null and location != ''">
+                location = #{location},
+            </if>
+            <if test="age != null">
+                age = #{age},
+            </if>
+            <if test="country != null and country != ''">
+                country = #{country},
+            </if>
+            <if test="detailAddress != null and detailAddress != ''">
+                detail_address = #{detailAddress},
+            </if>
+            <if test="identity != null and identity != ''">
+                identity = #{identity},
+            </if>
+            <if test="active != null and active != ''">
+                active = #{active},
+            </if>
+            <if test="code != null and code != ''">
+                code = #{code},
+            </if>
+            <if test="updated != null">
+                updated = #{updated},
+            </if>
+            <if test="created != null">
+                created = #{created},
+            </if>
+            <if test="money != null">
+                money = #{money},
+            </if>
+        </set>
+        where user_id = #{userId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from books.user where user_id = #{userId}
+    </delete>
+
+
+</mapper>

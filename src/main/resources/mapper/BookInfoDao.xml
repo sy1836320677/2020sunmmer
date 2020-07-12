@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.play.dao.BookInfoDao">
+
+    <resultMap type="com.web.play.entity.BookInfo" id="BookInfoMap">
+        <result property="bookId" column="book_id" jdbcType="INTEGER"/>
+        <result property="bookCategoryId" column="book_category_id" jdbcType="INTEGER"/>
+        <result property="storeId" column="store_id" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="outline" column="outline" jdbcType="VARCHAR"/>
+        <result property="detail" column="detail" jdbcType="VARCHAR"/>
+        <result property="press" column="press" jdbcType="VARCHAR"/>
+        <result property="publishDate" column="publish_date" jdbcType="VARCHAR"/>
+        <result property="size" column="size" jdbcType="VARCHAR"/>
+        <result property="version" column="version" jdbcType="VARCHAR"/>
+        <result property="author" column="author" jdbcType="VARCHAR"/>
+        <result property="translator" column="translator" jdbcType="VARCHAR"/>
+        <result property="isbn" column="isbn" jdbcType="VARCHAR"/>
+        <result property="price" column="price" jdbcType="NUMERIC"/>
+        <result property="pages" column="pages" jdbcType="INTEGER"/>
+        <result property="catalog" column="catalog" jdbcType="VARCHAR"/>
+        <result property="marketPrice" column="market_price" jdbcType="NUMERIC"/>
+        <result property="memberPrice" column="member_price" jdbcType="NUMERIC"/>
+        <result property="dealMount" column="deal_mount" jdbcType="INTEGER"/>
+        <result property="lookMount" column="look_mount" jdbcType="INTEGER"/>
+        <result property="discount" column="discount" jdbcType="NUMERIC"/>
+        <result property="imageUrl" column="image_url" jdbcType="VARCHAR"/>
+        <result property="storeMount" column="store_mount" jdbcType="INTEGER"/>
+        <result property="storeTime" column="store_time" jdbcType="TIMESTAMP"/>
+        <result property="packStyle" column="pack_style" jdbcType="VARCHAR"/>
+        <result property="isShelf" column="is_shelf" jdbcType="INTEGER"/>
+        <result property="cname" column="cname" jdbcType="VARCHAR"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="cata" column="cata" jdbcType="VARCHAR"/>
+        <result property="content" column="content" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BookInfoMap">
+        select
+          book_id, book_category_id, store_id, name, outline, detail, press, publish_date, size, version, author, translator, isbn, price, pages, catalog, market_price, member_price, deal_mount, look_mount, discount, image_url, store_mount, store_time, pack_style, is_shelf, cname, description, cata, content
+        from books.book_info
+        where book_id = #{bookId}
+    </select>
+    <select id="queryByCateId" resultMap="BookInfoMap">
+        select
+          book_id, book_category_id, store_id, name, outline, detail, press, publish_date, size, version, author, translator, isbn, price, pages, catalog, market_price, member_price, deal_mount, look_mount, discount, image_url, store_mount, store_time, pack_style, is_shelf, cname, description, cata, content
+        from books.book_info
+        where book_category_id = #{bookCategoryId}
+    </select>
+    <select id="queryByName" resultMap="BookInfoMap">
+        select
+          book_id, book_category_id, store_id, name, outline, detail, press, publish_date, size, version, author, translator, isbn, price, pages, catalog, market_price, member_price, deal_mount, look_mount, discount, image_url, store_mount, store_time, pack_style, is_shelf, cname, description, cata, content
+        from books.book_info
+        where name = #{name}
+    </select>
+    <select id="queryByCname" resultMap="BookInfoMap">
+        select
+          book_id, book_category_id, store_id, name, outline, detail, press, publish_date, size, version, author, translator, isbn, price, pages, catalog, market_price, member_price, deal_mount, look_mount, discount, image_url, store_mount, store_time, pack_style, is_shelf, cname, description, cata, content
+        from books.book_info
+        where cname = #{cname}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BookInfoMap">
+        select
+          book_id, book_category_id, store_id, name, outline, detail, press, publish_date, size, version, author, translator, isbn, price, pages, catalog, market_price, member_price, deal_mount, look_mount, discount, image_url, store_mount, store_time, pack_style, is_shelf, cname, description, cata, content
+        from books.book_info
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BookInfoMap">
+        select
+          book_id, book_category_id, store_id, name, outline, detail, press, publish_date, size, version, author, translator, isbn, price, pages, catalog, market_price, member_price, deal_mount, look_mount, discount, image_url, store_mount, store_time, pack_style, is_shelf, cname, description, cata, content
+        from books.book_info
+        <where>
+            <if test="bookId != null">
+                and book_id = #{bookId}
+            </if>
+            <if test="bookCategoryId != null">
+                and book_category_id = #{bookCategoryId}
+            </if>
+            <if test="storeId != null">
+                and store_id = #{storeId}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="outline != null and outline != ''">
+                and outline = #{outline}
+            </if>
+            <if test="detail != null and detail != ''">
+                and detail = #{detail}
+            </if>
+            <if test="press != null and press != ''">
+                and press = #{press}
+            </if>
+            <if test="publishDate != null and publishDate != ''">
+                and publish_date = #{publishDate}
+            </if>
+            <if test="size != null and size != ''">
+                and size = #{size}
+            </if>
+            <if test="version != null and version != ''">
+                and version = #{version}
+            </if>
+            <if test="author != null and author != ''">
+                and author = #{author}
+            </if>
+            <if test="translator != null and translator != ''">
+                and translator = #{translator}
+            </if>
+            <if test="isbn != null and isbn != ''">
+                and isbn = #{isbn}
+            </if>
+            <if test="price != null">
+                and price = #{price}
+            </if>
+            <if test="pages != null">
+                and pages = #{pages}
+            </if>
+            <if test="catalog != null and catalog != ''">
+                and catalog = #{catalog}
+            </if>
+            <if test="marketPrice != null">
+                and market_price = #{marketPrice}
+            </if>
+            <if test="memberPrice != null">
+                and member_price = #{memberPrice}
+            </if>
+            <if test="dealMount != null">
+                and deal_mount = #{dealMount}
+            </if>
+            <if test="lookMount != null">
+                and look_mount = #{lookMount}
+            </if>
+            <if test="discount != null">
+                and discount = #{discount}
+            </if>
+            <if test="imageUrl != null and imageUrl != ''">
+                and image_url = #{imageUrl}
+            </if>
+            <if test="storeMount != null">
+                and store_mount = #{storeMount}
+            </if>
+            <if test="storeTime != null">
+                and store_time = #{storeTime}
+            </if>
+            <if test="packStyle != null and packStyle != ''">
+                and pack_style = #{packStyle}
+            </if>
+            <if test="isShelf != null">
+                and is_shelf = #{isShelf}
+            </if>
+            <if test="cname != null and cname != ''">
+                and cname = #{cname}
+            </if>
+            <if test="description != null and description != ''">
+                and description = #{description}
+            </if>
+            <if test="cata != null and cata != ''">
+                and cata = #{cata}
+            </if>
+            <if test="content != null and content != ''">
+                and content = #{content}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="bookId" useGeneratedKeys="true">
+        insert into books.book_info(book_category_id, store_id, name, outline, detail, press, publish_date, size, version, author, translator, isbn, price, pages, catalog, market_price, member_price, deal_mount, look_mount, discount, image_url, store_mount, store_time, pack_style, is_shelf, cname, description, cata, content)
+        values (#{bookCategoryId}, #{storeId}, #{name}, #{outline}, #{detail}, #{press}, #{publishDate}, #{size}, #{version}, #{author}, #{translator}, #{isbn}, #{price}, #{pages}, #{catalog}, #{marketPrice}, #{memberPrice}, #{dealMount}, #{lookMount}, #{discount}, #{imageUrl}, #{storeMount}, #{storeTime}, #{packStyle}, #{isShelf}, #{cname}, #{description}, #{cata}, #{content})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update books.book_info
+        <set>
+            <if test="bookCategoryId != null">
+                book_category_id = #{bookCategoryId},
+            </if>
+            <if test="storeId != null">
+                store_id = #{storeId},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="outline != null and outline != ''">
+                outline = #{outline},
+            </if>
+            <if test="detail != null and detail != ''">
+                detail = #{detail},
+            </if>
+            <if test="press != null and press != ''">
+                press = #{press},
+            </if>
+            <if test="publishDate != null and publishDate != ''">
+                publish_date = #{publishDate},
+            </if>
+            <if test="size != null and size != ''">
+                size = #{size},
+            </if>
+            <if test="version != null and version != ''">
+                version = #{version},
+            </if>
+            <if test="author != null and author != ''">
+                author = #{author},
+            </if>
+            <if test="translator != null and translator != ''">
+                translator = #{translator},
+            </if>
+            <if test="isbn != null and isbn != ''">
+                isbn = #{isbn},
+            </if>
+            <if test="price != null">
+                price = #{price},
+            </if>
+            <if test="pages != null">
+                pages = #{pages},
+            </if>
+            <if test="catalog != null and catalog != ''">
+                catalog = #{catalog},
+            </if>
+            <if test="marketPrice != null">
+                market_price = #{marketPrice},
+            </if>
+            <if test="memberPrice != null">
+                member_price = #{memberPrice},
+            </if>
+            <if test="dealMount != null">
+                deal_mount = #{dealMount},
+            </if>
+            <if test="lookMount != null">
+                look_mount = #{lookMount},
+            </if>
+            <if test="discount != null">
+                discount = #{discount},
+            </if>
+            <if test="imageUrl != null and imageUrl != ''">
+                image_url = #{imageUrl},
+            </if>
+            <if test="storeMount != null">
+                store_mount = #{storeMount},
+            </if>
+            <if test="storeTime != null">
+                store_time = #{storeTime},
+            </if>
+            <if test="packStyle != null and packStyle != ''">
+                pack_style = #{packStyle},
+            </if>
+            <if test="isShelf != null">
+                is_shelf = #{isShelf},
+            </if>
+            <if test="cname != null and cname != ''">
+                cname = #{cname},
+            </if>
+            <if test="description != null and description != ''">
+                description = #{description},
+            </if>
+            <if test="cata != null and cata != ''">
+                cata = #{cata},
+            </if>
+            <if test="content != null and content != ''">
+                content = #{content},
+            </if>
+        </set>
+        where book_id = #{bookId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from books.book_info where book_id = #{bookId}
+    </delete>
+
+</mapper>
