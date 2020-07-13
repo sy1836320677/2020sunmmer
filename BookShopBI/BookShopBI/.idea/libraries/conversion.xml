@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="conversion">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../weblog_analysis/weblog_analysis/out/artifacts/weblog_analysis_jar/conversion.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../weblog_analysis/weblog_analysis/out/artifacts/weblog_analysis_jar/conversion.jar!/" />
+    </SOURCES>
+  </library>
+</component>
